@@ -4,7 +4,7 @@ using VCard.Models;
 
 namespace VCard.Services;
 
-public class VCardService
+public abstract class VCardService
 {
     public static void SaveVCardAndQrCodeToFolder(CardInfo vcard)
     {
