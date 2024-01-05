@@ -26,14 +26,17 @@ namespace VCard
                     switch (choice)
                     {
                         case "1":
+                            // manual data entry and save to file
                             PerformManualDataEntry();
                             break;
 
                         case "2":
+                            // random data usage and save to file
                             await PerformRandomDataUsage();
                             break;
 
                         case "0":
+                            // exit program
                             continueProgram = false;
                             break;
 
@@ -48,7 +51,9 @@ namespace VCard
                 }
             }
         }
-
+        
+        
+        // manual data entry and save to file
         private static void PerformManualDataEntry()
         {
             var firstName = GetUserInput("Adı");
@@ -67,11 +72,13 @@ namespace VCard
                 Country = country,
                 City = city
             };
-
+            
             VCardService.SaveVCardAndQrCodeToFolder(user);
             Console.WriteLine($"{firstName} {surname} adlı şəxs üçün VCard yaradıldı.");
         }
 
+        
+        // get random user data from api and save to file
         private static async Task PerformRandomDataUsage()
         {
             Console.WriteLine("Yaradılacaq VCard sayını daxil edin:");
@@ -96,12 +103,14 @@ namespace VCard
 
             foreach (var user in users)
             {
+                
                 VCardService.SaveVCardAndQrCodeToFolder(user);
             }
 
             Console.WriteLine($"{count} ədəd VCard yaradıldı.");
         }
 
+        // get user input from console and validate
         private static string GetUserInput(string fieldName)
         {
             while (true)
@@ -118,6 +127,7 @@ namespace VCard
             }
         }
 
+        // validate email
         private static string GetValidatedEmail()
         {
             while (true)
@@ -131,13 +141,15 @@ namespace VCard
                 Console.WriteLine("Düzgün e-poçt daxil edin!");
             }
         }
-
+        
         private static bool IsValidEmail(string email)
         {
             var emailRegex = new Regex(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
             return emailRegex.IsMatch(email);
         }
 
+        
+        // deserialize json data
         private static List<CardInfo> FromJsonDeserialize(string jsonData, int count)
         {
             var cardInfos = new List<CardInfo>();

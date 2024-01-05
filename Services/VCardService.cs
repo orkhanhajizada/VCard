@@ -6,6 +6,8 @@ namespace VCard.Services;
 
 public abstract class VCardService
 {
+    
+    // save vcard and qrcode to desktop
     public static void SaveVCardAndQrCodeToFolder(CardInfo vcard)
     {
         var folderName = $"{vcard.Firstname} {vcard.Surname} {vcard.Id}";
@@ -15,6 +17,7 @@ public abstract class VCardService
         SaveQrCodeToFile(vcard, folderPath);
     }
 
+    // save vcard as vcf file to desktop
     private static void SaveVCardToFile(CardInfo vcard, string folderPath)
     {
         var vcardTextBuilder = new StringBuilder();
@@ -30,6 +33,8 @@ public abstract class VCardService
         File.WriteAllText(filePath, vcardTextBuilder.ToString());
     }
 
+    
+    // save qrcode as png file to desktop
     private static void SaveQrCodeToFile(CardInfo vcard, string folderPath)
     {
         var qrGenerator = new QRCodeGenerator();
